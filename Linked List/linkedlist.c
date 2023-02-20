@@ -18,49 +18,31 @@ void insert(struct linkedList **list, int value)
 
 void delete(struct linkedList **list, int value)
 {
-    struct linkedList *items = *list;
-    if (*list == NULL)
+    struct linkedList *items = *list, *prev;
+
+    // first element to delete
+    if (items->next != NULL && items->data == value)
     {
-        printf("error, List is empty\n");
+
+        *list = items->next;
+        free(items);
         return;
     }
 
-    else if (items->data == value)
+    while (items != NULL && items->data != value)
     {
-
-        if (items->next != NULL)
-        {
-
-            items->data = items->next->data;
-            items->next = items->next->next;
-        }
-        else
-        {
-            free(items);
-            free(list);
-        }
+        prev = items;
+        items = items->next;
     }
 
-    else
+    if (items == NULL)
     {
-        struct linkedList *current = items->next;
-        struct linkedList *prev = items;
-
-        while (current != NULL)
-        {
-
-            if (current->data == value)
-            {
-
-                struct linkedList *temp = current;
-                prev->next = current->next;
-                free(temp);
-                break;
-            }
-            prev = current;
-            current = current->next;
-        }
+        printf("Error, value not found\n");
+        return;
     }
+
+    prev->next = items->next;
+    free(items);
 }
 
 struct linkedList *traverse(struct linkedList **list)
@@ -111,7 +93,7 @@ int main(int argc, char **argv)
 
     traverse(&list);
 
-    delete (&list, 2);
+    delete (&list, 9);
     printf("\n");
 
     traverse(&list);

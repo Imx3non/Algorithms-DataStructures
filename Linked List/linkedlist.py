@@ -21,29 +21,30 @@ class LinkedList:
             print("Error list is empty")
             return
 
-        elif self.value == value:
+        if (self.next != None and self.value == value):
 
-            if self.next != None:
+            self.value = self.next.value
+            self.next = self.next.next
+            return
 
-                self.value = self.next.value
-                self.next = self.next.next
-            else:
-                self.value = None
-                self.next = None
+        temp = self
+        prev = self
+        while (temp != None and temp.value != value):
 
-        else:
-            current = self.next
-            prev = self
-            while current != None:
-                if current.value == value:
-                    prev.next = current.next
-                    break
-                prev = current
-                current = current.next
+            prev = temp
+            temp = temp.next
+
+        if (temp == None):
+            print("Error, value not found")
+            return
+
+        prev.next = temp.next
 
     def traverse(self):
 
         current = self
+        if (current.value == None):
+            print("Error, list is empty")
 
         while current.next != None:
 
@@ -54,9 +55,7 @@ class LinkedList:
 linked = LinkedList()
 
 linked.addNode(1)
-linked.addNode(2)
-linked.addNode(3)
-linked.addNode(4)
+
 
 linked.traverse()
 

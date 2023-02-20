@@ -76,7 +76,7 @@ void deleteMax(int arr[])
 
     printf("removing the Max element, %d\n", arr[0]);
 
-    arr[0] = arr[size];
+    swap(arr[0], arr[size]);
     size--;
 
     for (int i = size / 2 - 1; i >= 0; i--)

@@ -26,7 +26,7 @@ def insert(arr, value):
         size += 1
         # heapify from bottom to top
         for i in range((size//2) - 1, -1, -1):
-            print(i)
+
             heapify(arr, size, i)
 
 

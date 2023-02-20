@@ -3,21 +3,21 @@
 
 #define MAX 10
 
-struct queue
+struct queueContainer
 {
     int queue[MAX];
     int top;
     int rear;
 };
 
-void enqueue(struct queue *queue, int item);
-void dequeue(struct queue *queue);
-void peek(struct queue *queue);
-void printQueue(struct queue *queue);
+void enqueue(struct queueContainer *queue, int item);
+void dequeue(struct queueContainer *queue);
+void peek(struct queueContainer *queue);
+void printQueue(struct queueContainer *queue);
 int main(int argc, char **argv)
 {
 
-    struct queue *queue = malloc(sizeof(struct queue));
+    struct queueContainer *queue = malloc(sizeof(struct queueContainer));
 
     // initialise queue pointers
     queue->top = -1;
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     peek(queue);
 }
 
-void enqueue(struct queue *queue, int item)
+void enqueue(struct queueContainer *queue, int item)
 {
 
     // check if full
@@ -71,7 +71,7 @@ void enqueue(struct queue *queue, int item)
     }
 }
 
-void dequeue(struct queue *queue)
+void dequeue(struct queueContainer *queue)
 {
 
     // check if empty
@@ -83,6 +83,7 @@ void dequeue(struct queue *queue)
 
     else
     {
+        queue->top++;
         // last item in queue reset Top and rear
         if (queue->top > queue->rear)
         {
@@ -91,14 +92,19 @@ void dequeue(struct queue *queue)
     }
 }
 
-void peek(struct queue *queue)
+void peek(struct queueContainer *queue)
 {
 
     printf("Next Item is %d \n", queue->queue[queue->top]);
 }
 
-void printQueue(struct queue *queue)
+void printQueue(struct queueContainer *queue)
 {
+    if (queue->top == -1)
+    {
+        printf("QUEUE is empty\n");
+        return;
+    }
     for (int i = queue->top; i <= queue->rear; i++)
     {
 
